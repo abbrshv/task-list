@@ -1,8 +1,11 @@
 class TaskStorage {
+  #id = 0;
+
   #taskMap = new Map();
 
   generateId() {
-    return crypto.randomUUID();
+    this.#id += 1;
+    return this.#id;
   }
 
   create(task) {
