@@ -13,7 +13,7 @@ class TaskStorage {
   }
 
   get(id) {
-    return this.#taskMap.get(id);
+    return { ...this.#taskMap.get(id) };
   }
 
   getAll() {
