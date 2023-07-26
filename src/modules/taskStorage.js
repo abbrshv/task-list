@@ -10,7 +10,7 @@ class TaskStorage {
 
   create(task) {
     const newTask = { ...task };
-    newTask.id = this.generateId();
+    newTask.#id = this.generateId();
     newTask.createdDate = new Date();
     return this.#taskMap.set(newTask.id, newTask).has(newTask.id);
   }
