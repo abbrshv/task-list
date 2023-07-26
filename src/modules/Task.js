@@ -3,7 +3,6 @@ export default class Task {
     this.name = name;
     this.category = category;
     this.content = content;
-    this.dates = [];
     this.isArchived = false;
   }
 }
