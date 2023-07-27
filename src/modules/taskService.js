@@ -32,7 +32,7 @@ class TaskService {
   }
 
   create(name, category, content) {
-    if (categories.includes(category.toLowerCase())) {
+    if (!categories.includes(category.toLowerCase())) {
       throw new Error('Wrong task category');
     }
 
@@ -52,7 +52,7 @@ class TaskService {
       throw new Error(`Task with id ${id} doesn't exist`);
     }
 
-    if (updatedData.category && categories.contains(updatedData.category)) {
+    if (updatedData.category && !categories.contains(updatedData.category)) {
       throw new Error('Wrong task category');
     }
 

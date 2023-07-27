@@ -1,4 +1,5 @@
 import createElement from '../helpers/domHelper';
+import { categories } from '../constants/categories';
 
 export default class TaskView {
   static createTableBase(className, ...headers) {
@@ -30,14 +31,14 @@ export default class TaskView {
   }
 
   static createRowButtons(id) {
-    const buttonClasses = ['btn-edit', 'btn-archive', 'btn-delete'];
+    const buttonClasses = ['edit', 'archive', 'delete'];
     const button = createElement({ tagName: 'button' });
     const buttonSpan = createElement({ tagName: 'span' });
     const buttons = [button, button.cloneNode(), button.cloneNode()];
 
     buttons.forEach((btn, idx) => {
       btn.classList.add('btn');
-      btn.classList.add(buttonClasses[idx]);
+      btn.classList.add(`btn-${buttonClasses[idx]}`);
       // eslint-disable-next-line no-param-reassign
       btn.dataset.id = id;
       buttonSpan.appendChild(btn);
@@ -60,7 +61,7 @@ export default class TaskView {
       const row = this.createDataRow(
         name,
         formatCreatedDate,
-        category,
+        category[0].toUpperCase() + category.substring(1),
         content,
         formatDates,
         buttons,
