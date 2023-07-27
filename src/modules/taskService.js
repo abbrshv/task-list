@@ -1,19 +1,38 @@
 import taskStorage from './taskStorage';
 import Task from './Task';
+import { categories } from '../constants/categories';
 
 class TaskService {
-  categories = ['task', 'random thought', 'idea'];
-
   dateRegex = /(0[1-9]|[12][0-9]|3[01])(\/|-)(0[1-9]|1[1,2])(\/|-)(19|20)\d{2}/g;
 
   getAll() {
-    const tasks = taskStorage.getAll();
-    if (!tasks) return null;
-    return tasks;
+    const result = taskStorage.getAll();
+    if (!result) return null;
+    return result;
+  }
+
+  get(id) {
+    const result = taskStorage.get(id);
+    if (!result) {
+      throw new Error(`Task with id ${id} doesn't exist`);
+    }
+    return result;
+  }
+
+  getActive() {
+    const result = taskStorage.getAll().filter((task) => !task.isArchived);
+    if (!result) return null;
+    return result;
+  }
+
+  getArchived() {
+    const result = taskStorage.getAll().filter((task) => task.isArchived);
+    if (!result) return null;
+    return result;
   }
 
   create(name, category, content) {
-    if (!this.categories.includes(category.toLowerCase())) {
+    if (categories.includes(category.toLowerCase())) {
       throw new Error('Wrong task category');
     }
 
@@ -33,7 +52,7 @@ class TaskService {
       throw new Error(`Task with id ${id} doesn't exist`);
     }
 
-    if (updatedData.category && !this.categories.contains(updatedData.category)) {
+    if (updatedData.category && categories.contains(updatedData.category)) {
       throw new Error('Wrong task category');
     }
 
@@ -49,6 +68,18 @@ class TaskService {
       throw new Error(`Task with id ${id} doesn't exist`);
     }
     return result;
+  }
+
+  getStats() {
+    const statsObj = {};
+    statsObj.active = categories.map((category) =>
+      this.getActive().reduce((acc, cur) => (cur.category === category ? 1 : 0), 0),
+    );
+    statsObj.archived = categories.map((category) =>
+      this.getArchived().reduce((acc, cur) => (cur.category === category ? 1 : 0), 0),
+    );
+
+    return statsObj;
   }
 }
 
