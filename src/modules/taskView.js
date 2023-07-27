@@ -77,7 +77,8 @@ export default class TaskView {
     const table = this.createTableBase('stats-table', ...headers);
 
     categories.forEach((category, idx) => {
-      const row = this.createDataRow(category, statsObj.active[idx], statsObj.archived[idx]);
+      const categoryFormat = category[0].toUpperCase() + category.substring(1);
+      const row = this.createDataRow(categoryFormat, statsObj.active[idx], statsObj.archived[idx]);
       table.appendChild(row);
     });
 
