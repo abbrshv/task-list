@@ -71,4 +71,16 @@ export default class TaskView {
 
     return table;
   }
+
+  static createStatsTable(statsObj) {
+    const headers = ['Note Category', 'Active', 'Archived'];
+    const table = this.createTableBase('stats-table', ...headers);
+
+    categories.forEach((category, idx) => {
+      const row = this.createDataRow(category, statsObj.active[idx], statsObj.archived[idx]);
+      table.appendChild(row);
+    });
+
+    return table;
+  }
 }
