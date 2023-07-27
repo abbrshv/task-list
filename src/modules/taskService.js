@@ -73,10 +73,10 @@ class TaskService {
   getStats() {
     const statsObj = {};
     statsObj.active = categories.map((category) =>
-      this.getActive().reduce((acc, cur) => (cur.category === category ? 1 : 0), 0),
+      this.getActive().reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
     );
     statsObj.archived = categories.map((category) =>
-      this.getArchived().reduce((acc, cur) => (cur.category === category ? 1 : 0), 0),
+      this.getArchived().reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
     );
 
     return statsObj;
