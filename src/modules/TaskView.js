@@ -51,6 +51,7 @@ export default class TaskView {
   }
 
   static createTaskTable(className, tasks) {
+    const tableContainer = createElement({ tagName: 'div', className: `${className}-container` });
     const headers = ['Name', 'Created', 'Category', 'Content', 'Dates', ''];
     const table = this.createTableBase(`task-table ${className}`, ...headers);
 
@@ -71,11 +72,13 @@ export default class TaskView {
       );
       table.appendChild(row);
     });
+    tableContainer.appendChild(table);
 
-    return table;
+    return tableContainer;
   }
 
   static createStatsTable(statsObj) {
+    const tableContainer = createElement({ tagName: 'div', className: `stats-container` });
     const headers = ['Note Category', 'Active', 'Archived'];
     const table = this.createTableBase('stats-table', ...headers);
 
@@ -84,7 +87,8 @@ export default class TaskView {
       const row = this.createDataRow(categoryFormat, statsObj.active[idx], statsObj.archived[idx]);
       table.appendChild(row);
     });
+    tableContainer.appendChild(table);
 
-    return table;
+    return tableContainer;
   }
 }
