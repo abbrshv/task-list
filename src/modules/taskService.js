@@ -31,7 +31,8 @@ class TaskService {
     return result;
   }
 
-  create(name, category, content) {
+  create(task) {
+    const { name, category, content } = task;
     if (!categories.includes(category.toLowerCase())) {
       throw new Error('Wrong task category');
     }
