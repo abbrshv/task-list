@@ -6,6 +6,7 @@ function getModalContainer() {
 export function hideModal() {
   const modal = document.getElementsByClassName('modals-layer')[0];
   modal?.remove();
+  document.querySelector('.btn-reload').click();
 }
 
 function createHeader(title) {
@@ -37,7 +38,7 @@ function createModal({ title, bodyElement }) {
 }
 
 export function showModal({ title, bodyElement }) {
-  if (document.getElementsByClassName('modals-layer')[0]) return;
+  if (document.getElementsByClassName('modals-layer')[0]) hideModal();
   const root = getModalContainer();
   const modal = createModal({ title, bodyElement });
 
