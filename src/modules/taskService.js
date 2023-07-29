@@ -37,6 +37,7 @@ class TaskService {
     }
 
     const newTask = new Task(name, category.toLowerCase(), content);
+    this.isArchived = false;
     newTask.dates = newTask.content.match(this.dateRegex);
 
     const result = taskStorage.create(newTask);
