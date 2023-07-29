@@ -74,6 +74,12 @@ export default class TaskView {
     });
     tableContainer.appendChild(table);
 
+    if (className.includes('active')) {
+      const createButton = createElement({ tagName: 'button', className: 'btn btn-create' });
+      createButton.onclick = () => showInputModal('create');
+      tableContainer.appendChild(createButton);
+    }
+
     return tableContainer;
   }
 
