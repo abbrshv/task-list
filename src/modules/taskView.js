@@ -1,5 +1,7 @@
 import createElement from '../helpers/domHelper';
 import { categories } from '../constants/categories';
+import showInputModal from './modals/inputModal';
+import showConfirmModal from './modals/confirmModal';
 
 export default class TaskView {
   static createTableBase(className, ...headers) {
@@ -31,15 +33,16 @@ export default class TaskView {
   }
 
   static createRowButtons(id) {
-    const buttonClasses = ['edit', 'archive', 'delete'];
+    const buttonActions = ['edit', 'archive', 'delete'];
     const buttonSpan = createElement({ tagName: 'span' });
 
-    const buttons = buttonClasses.map((className) => {
+    const buttons = buttonActions.map((action) => {
       const button = createElement({
         tagName: 'button',
-        className: `btn btn-${className}`,
+        className: `btn btn-${action}`,
       });
-      button.dataset.id = id;
+      if (action === 'edit') button.onclick = () => showInputModal(action, id);
+      else button.onclick = () => showConfirmModal(action, id);
       return button;
     });
     buttonSpan.append(...buttons);
