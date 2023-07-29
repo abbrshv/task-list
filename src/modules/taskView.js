@@ -32,17 +32,17 @@ export default class TaskView {
 
   static createRowButtons(id) {
     const buttonClasses = ['edit', 'archive', 'delete'];
-    const button = createElement({ tagName: 'button' });
     const buttonSpan = createElement({ tagName: 'span' });
-    const buttons = [button, button.cloneNode(), button.cloneNode()];
 
-    buttons.forEach((btn, idx) => {
-      btn.classList.add('btn');
-      btn.classList.add(`btn-${buttonClasses[idx]}`);
-      // eslint-disable-next-line no-param-reassign
-      btn.dataset.id = id;
-      buttonSpan.appendChild(btn);
+    const buttons = buttonClasses.map((className) => {
+      const button = createElement({
+        tagName: 'button',
+        className: `btn btn-${className}`,
+      });
+      button.dataset.id = id;
+      return button;
     });
+    buttonSpan.append(...buttons);
 
     return buttonSpan;
   }
