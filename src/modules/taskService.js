@@ -50,7 +50,7 @@ class TaskService {
   }
 
   update(id, updatedData) {
-    if (updatedData.category && !categories.contains(updatedData.category)) {
+    if (updatedData.category && !categories.includes(updatedData.category)) {
       throw new Error('Wrong task category');
     }
 
