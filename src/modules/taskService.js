@@ -11,23 +11,23 @@ class TaskService {
     return result;
   }
 
-  get(id) {
-    const result = taskStorage.get(id);
-    if (!result) {
-      throw new Error(`Task with id ${id} doesn't exist`);
-    }
-    return result;
-  }
-
-  getActive() {
+  getAllActive() {
     const result = taskStorage.getAll().filter((task) => !task.isArchived);
     if (!result) return null;
     return result;
   }
 
-  getArchived() {
+  getAllArchived() {
     const result = taskStorage.getAll().filter((task) => task.isArchived);
     if (!result) return null;
+    return result;
+  }
+
+  get(id) {
+    const result = taskStorage.get(id);
+    if (!result) {
+      throw new Error(`Task with id ${id} doesn't exist`);
+    }
     return result;
   }
 
@@ -43,19 +43,16 @@ class TaskService {
     if (!result) {
       throw new Error('Could not create task');
     }
+
     return result;
   }
 
   update(id, updatedData) {
-    const task = taskStorage.get(id);
-    if (!task) {
-      throw new Error(`Task with id ${id} doesn't exist`);
-    }
-
     if (updatedData.category && !categories.contains(updatedData.category)) {
       throw new Error('Wrong task category');
     }
 
+    const task = this.get(id);
     const updatedTask = { ...task, ...updatedData };
     updatedTask.dates = updatedTask.content.match(this.dateRegex);
 
@@ -70,13 +67,19 @@ class TaskService {
     return result;
   }
 
+  changeArchive(id) {
+    const task = this.get(id);
+    task.isArchived = !task.isArchived;
+    this.update(id, task);
+  }
+
   getStats() {
     const statsObj = {};
     statsObj.active = categories.map((category) =>
-      this.getActive().reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
+      this.getAllActive().reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
     );
     statsObj.archived = categories.map((category) =>
-      this.getArchived().reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
+      this.getAllArchived().reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
     );
 
     return statsObj;
