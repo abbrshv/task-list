@@ -37,6 +37,7 @@ function createModal({ title, bodyElement }) {
 }
 
 export function showModal({ title, bodyElement }) {
+  if (document.getElementsByClassName('modals-layer')[0]) return;
   const root = getModalContainer();
   const modal = createModal({ title, bodyElement });
 
