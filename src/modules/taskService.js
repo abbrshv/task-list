@@ -53,9 +53,13 @@ class TaskService {
     if (updatedData.category && !categories.includes(updatedData.category)) {
       throw new Error('Wrong task category');
     }
+    const filteredData = Object.fromEntries(
+      // eslint-disable-next-line no-unused-vars
+      Object.entries(updatedData).filter(([_, value]) => value !== ''),
+    );
 
     const task = this.get(id);
-    const updatedTask = { ...task, ...updatedData };
+    const updatedTask = { ...task, ...filteredData };
     updatedTask.dates = updatedTask.content.match(this.dateRegex);
 
     return taskStorage.update(updatedTask);
