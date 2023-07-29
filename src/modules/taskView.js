@@ -52,7 +52,7 @@ export default class TaskView {
 
   static createTaskTable(className, tasks) {
     const headers = ['Name', 'Created', 'Category', 'Content', 'Dates', ''];
-    const table = this.createTableBase(className, ...headers);
+    const table = this.createTableBase(`task-table ${className}`, ...headers);
 
     tasks.forEach((task) => {
       const buttons = this.createRowButtons(task.id);
