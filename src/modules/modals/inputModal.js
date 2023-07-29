@@ -20,7 +20,7 @@ function createForm(...fieldNames) {
     const fieldTag = name === 'category' ? 'select' : 'input';
     const label = createElement({
       tagName: 'label',
-      className: '',
+      className: `${name}-label`,
       attributes: {
         for: name,
       },
