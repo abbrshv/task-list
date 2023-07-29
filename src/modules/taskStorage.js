@@ -1,5 +1,5 @@
 class TaskStorage {
-  #id = 0;
+  #id = -1;
 
   #taskMap = new Map();
 
