@@ -4,6 +4,7 @@ import Task from '../Task';
 import { categories } from '../../constants/categories';
 import { showModal, hideModal } from './modal';
 
+// TODO add task field values as input defaults
 function createForm(...fieldNames) {
   const inputForm = createElement({ tagName: 'form', className: 'input-form' });
   const submitButton = createElement({
