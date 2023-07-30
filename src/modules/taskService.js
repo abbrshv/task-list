@@ -3,24 +3,21 @@ import Task from './Task';
 import { categories } from '../constants/categories';
 
 class TaskService {
-  dateRegex = /(0[1-9]|[12][0-9]|3[01])(\/|-)(0[1-9]|1[1,2])(\/|-)(19|20)\d{2}/g;
+  static dateRegex = /(0[1-9]|[12][0-9]|3[01])(\/|-)(0[1-9]|1[1,2])(\/|-)(19|20)\d{2}/g;
 
   getAll() {
     const result = taskStorage.getAll();
-    if (!result) return null;
-    return result;
+    return result || null;
   }
 
   getAllActive() {
-    const result = taskStorage.getAll().filter((task) => !task.isArchived);
-    if (!result) return null;
-    return result;
+    const tasks = this.getAll();
+    return tasks ? tasks.filter((task) => !task.isArchived) : null;
   }
 
   getAllArchived() {
-    const result = taskStorage.getAll().filter((task) => task.isArchived);
-    if (!result) return null;
-    return result;
+    const tasks = this.getAll();
+    return tasks ? tasks.filter((task) => task.isArchived) : null;
   }
 
   get(id) {
@@ -38,8 +35,8 @@ class TaskService {
     }
 
     const newTask = new Task(name, category.toLowerCase(), content);
-    this.isArchived = false;
-    newTask.dates = newTask.content.match(this.dateRegex);
+    newTask.isArchived = false;
+    newTask.dates = newTask.content.match(TaskService.dateRegex);
 
     const result = taskStorage.create(newTask);
     if (!result) {
@@ -60,7 +57,7 @@ class TaskService {
 
     const task = this.get(id);
     const updatedTask = { ...task, ...filteredData };
-    updatedTask.dates = updatedTask.content.match(this.dateRegex);
+    updatedTask.dates = updatedTask.content.match(TaskService.dateRegex);
 
     return taskStorage.update(updatedTask);
   }
@@ -80,12 +77,15 @@ class TaskService {
   }
 
   getStats() {
+    const tasks = this.getAll();
+    if (!tasks) return null;
+
     const statsObj = {};
     statsObj.active = categories.map((category) =>
-      this.getAllActive().reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
+      tasks.reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
     );
     statsObj.archived = categories.map((category) =>
-      this.getAllArchived().reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
+      tasks.reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
     );
 
     return statsObj;
