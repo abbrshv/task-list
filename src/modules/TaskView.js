@@ -34,13 +34,15 @@ export default class TaskView {
 
   static createRowButtons(id) {
     const buttonActions = ['edit', 'archive', 'delete'];
+    const buttonTextContent = ['✎', '⇅', '⌫'];
     const buttonSpan = createElement({ tagName: 'span' });
 
-    const buttons = buttonActions.map((action) => {
+    const buttons = buttonActions.map((action, idx) => {
       const button = createElement({
         tagName: 'button',
         className: `btn btn-${action}`,
       });
+      button.textContent = buttonTextContent[idx];
       if (action === 'edit') button.onclick = () => showInputModal(action, id);
       else button.onclick = () => showConfirmModal(action, id);
       return button;
@@ -76,6 +78,7 @@ export default class TaskView {
 
     if (className.includes('active')) {
       const createButton = createElement({ tagName: 'button', className: 'btn btn-create' });
+      createButton.textContent = '+';
       createButton.onclick = () => showInputModal('create');
       tableContainer.appendChild(createButton);
     }
