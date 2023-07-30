@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import 'table.css';
+@import 'modal.css';
+@import "collapsible.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    background-color: ghostwhite;
+    font-family: 'Roboto', sans-serif;
+    font-size: calc(15px + 0.390625vw);
+    color: #333333;
+}
+
+.header__title {
+    font-size: calc(1rem + 3.5vw);
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    min-width: 320px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 320px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.task-active-container {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    border: none;
+    outline: none;
+    margin: 0 2px;
+    background-color: transparent;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.btn-create {
+    background-color: cornflowerblue;
+    color: ghostwhite;
+    margin: 15px 0 15px auto;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 70%;
+    font-size: 1.75rem;
+    /*margin-left: auto;*/
+}
+
+.btn-create:hover {
+    background-color: dodgerblue;
+}
+

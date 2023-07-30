@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+table {
+    margin: 0 auto;
+}
+
+table {
+    margin-top: 25px;
+    color: #333;
+    background: white;
+    border-bottom: 1px solid grey;
+    font-size: 12pt;
+    border-collapse: collapse;
+}
+
+table th {
+    font-weight: 700;
+    background: rgba(0, 0, 0, .1);
+}
+
+table th,
+table td {
+    padding: .5em;
+    border-bottom: 1px solid lightgrey;;
+}
+
+tr:nth-of-type(odd) {
+    background: rgba(0, 0, 0, .05);
+}
