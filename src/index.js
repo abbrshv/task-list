@@ -4,7 +4,6 @@ import tasks from './helpers/mockData';
 
 try {
   tasks.forEach((task) => taskService.create(task));
-  taskService.create({ name: 'Do it', category: 'task', content: 'banana' });
   App.startApp();
 } catch (error) {
   // eslint-disable-next-line no-console
