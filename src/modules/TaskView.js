@@ -13,10 +13,14 @@ export default class TaskView {
     collapsible.append(header, childElement);
 
     collapsible.onclick = (event) => {
-      event.target.classList.add('active');
       const content = document.querySelector(`.${className}`);
-      if (content.style.maxHeight) content.style.maxHeight = null;
-      else content.style.maxHeight = `100%`;
+      if (content.style.maxHeight) {
+        event.target.classList.remove('active');
+        content.style.maxHeight = null;
+      } else {
+        event.target.classList.add('active');
+        content.style.maxHeight = `100%`;
+      }
     };
 
     return collapsible;
