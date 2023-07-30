@@ -3,6 +3,7 @@ import taskService from '../taskService';
 import { showModal, hideModal } from './modal';
 
 export default function showConfirmModal(action, id) {
+  const task = taskService.get(id);
   const confirmBody = createElement({ tagName: 'div', className: 'modals-confirm' });
   const confirmMessage = createElement({ tagName: 'p', className: 'modals-confirm-msg' });
   const confirmButton = createElement({ tagName: 'button', className: 'btn btn-confirm' });
@@ -25,8 +26,9 @@ export default function showConfirmModal(action, id) {
     }
   };
 
-  confirmMessage.textContent = `Are you sure you want to ${action} this task?`;
-  confirmButton.textContent = `${action[0].toUpperCase() + action.substring(1)}`;
+  const finalAction = task.isArchived && action === 'archive' ? `un${action}` : action;
+  confirmMessage.textContent = `Are you sure you want to ${finalAction} this task?`;
+  confirmButton.textContent = `${finalAction[0].toUpperCase() + finalAction.substring(1)}`;
   denyButton.textContent = 'No';
   confirmButton.onclick = onConfirm;
   denyButton.onclick = hideModal;
