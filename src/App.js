@@ -5,9 +5,16 @@ import taskService from './modules/taskService';
 export default class App {
   static loadTables() {
     const container = document.querySelector('.container');
+    const archiveCollapsible = TaskView.createCollapsible(
+      'Archive',
+      TaskView.createTaskTable('task-archive', taskService.getAllArchived()),
+    );
+    const statsCollapsible = TaskView.createCollapsible(
+      'Statistics',
+      TaskView.createStatsTable(taskService.getStats()),
+    );
     container.append(TaskView.createTaskTable('task-active', taskService.getAllActive()));
-    container.append(TaskView.createTaskTable('task-archive', taskService.getAllArchived()));
-    container.append(TaskView.createStatsTable(taskService.getStats()));
+    container.append(archiveCollapsible, statsCollapsible);
   }
 
   static startApp() {

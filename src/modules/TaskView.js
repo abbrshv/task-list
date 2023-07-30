@@ -4,6 +4,24 @@ import showInputModal from './modals/inputModal';
 import showConfirmModal from './modals/confirmModal';
 
 export default class TaskView {
+  static createCollapsible(name, childElement) {
+    const className = `${name.toLowerCase()}-content`;
+    const collapsible = createElement({ tagName: 'div', className: 'collapsible' });
+    const header = createElement({ tagName: 'h2', className: 'collapsible-header' });
+    header.textContent = name;
+    childElement.classList.add('content', className);
+    collapsible.append(header, childElement);
+
+    collapsible.onclick = (event) => {
+      event.target.classList.add('active');
+      const content = document.querySelector(`.${className}`);
+      if (content.style.maxHeight) content.style.maxHeight = null;
+      else content.style.maxHeight = `100%`;
+    };
+
+    return collapsible;
+  }
+
   static createTableBase(className, ...headers) {
     const table = createElement({
       tagName: 'table',
