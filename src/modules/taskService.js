@@ -82,10 +82,14 @@ class TaskService {
 
     const statsObj = {};
     statsObj.active = categories.map((category) =>
-      tasks.reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
+      tasks
+        .filter((task) => !task.isArchived)
+        .reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
     );
     statsObj.archived = categories.map((category) =>
-      tasks.reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
+      tasks
+        .filter((task) => task.isArchived)
+        .reduce((acc, cur) => acc + (cur.category === category ? 1 : 0), 0),
     );
 
     return statsObj;
