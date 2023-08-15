@@ -2,7 +2,7 @@
 
 Test assignment solution
 
-A simple showcase task-list website made with JavaScript/HTML/CSS . Uses
+A simple showcase task-list website made with JavaScript/HTML/CSS. Uses
 Webpack
 for bundling.
 
